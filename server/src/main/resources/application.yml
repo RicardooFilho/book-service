@@ -3,8 +3,8 @@ spring:
     name: book.service
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/bookService
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://localhost:5432/db
+    username: user
+    password: pass
   liquibase:
     change-log: classpath:/liquibase/master.xml

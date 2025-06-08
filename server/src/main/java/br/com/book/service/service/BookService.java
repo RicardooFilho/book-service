@@ -2,6 +2,7 @@ package br.com.book.service.service;
 
 import br.com.book.service.domain.Book;
 import br.com.book.service.dto.BookPatchRequest;
+import br.com.book.service.enums.Status;
 import br.com.book.service.repository.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -35,14 +36,22 @@ public class BookService {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
-    public void patchStatus(Long id, BookPatchRequest request) {
+    public void patchStatus(String isbn, BookPatchRequest request) throws EntityNotFoundException {
 
-        repository.findById(id)
+        repository.findByIsbn(isbn)
                 .map(book -> {
                     book.setStatus(request.status());
 
                     return repository.save(book);
                 })
                 .orElseThrow(EntityNotFoundException::new);
+    }
+
+    public Boolean isDisponvelByIsbn(final String isbn) throws EntityNotFoundException {
+
+        final Book book = repository.findByIsbn(isbn)
+                .orElseThrow(EntityNotFoundException::new);
+
+        return Status.DISPONIVEL.equals(book.getStatus());
     }
 }

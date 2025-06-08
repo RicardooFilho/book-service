@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
-  postgres:
+  postgres_book:
     image: postgres:16
-    container_name: postgres_db
+    container_name: postgres_book
     restart: unless-stopped
     environment:
       POSTGRES_USER: user
@@ -14,5 +12,19 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  postgres_reservation:
+    image: postgres:16
+    container_name: postgres_reservation
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: reservation
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata_reservation:/var/lib/postgresql/data
+
 volumes:
   pgdata:
+  pgdata_reservation:

@@ -3,6 +3,7 @@ package br.com.book.service.controller;
 import br.com.book.service.domain.Book;
 import br.com.book.service.dto.BookPatchRequest;
 import br.com.book.service.service.BookService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,12 @@ public class BookController {
         return ResponseEntity.ok(service.findById(id));
     }
 
+    @GetMapping("/disponivel/{isbn}/isbn")
+    public ResponseEntity<Boolean> isDisponivelByIsbn(@PathVariable String isbn) throws EntityNotFoundException {
+
+        return ResponseEntity.ok(service.isDisponvelByIsbn(isbn));
+    }
+
     @PostMapping
     public ResponseEntity<Book> create(@RequestBody @Valid Book newBook) {
 
@@ -46,11 +53,10 @@ public class BookController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity<Void> patchStatus(@PathVariable(value = "id") Long id, BookPatchRequest request) {
-
-        service.patchStatus(id, request);
-
+    @PatchMapping("/{isbn}")
+    public ResponseEntity<Void> patchStatus(@PathVariable String isbn,
+                                            @RequestBody BookPatchRequest request) throws EntityNotFoundException {
+        service.patchStatus(isbn, request);
         return ResponseEntity.ok().build();
     }
 
