@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="CREATE_TABLE_BOOK" author="ricardo.filho">
+        <validCheckSum>ANY</validCheckSum>
+
+        <preConditions onFail="MARK_RAN" onFailMessage="A tabela BOOK já existe.">
+            <not>
+                <tableExists tableName="BOOK"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="BOOK">
+            <column name="ID" type="${id}" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_BOOK"/>
+            </column>
+            <column name="TITULO" type="${descricao255}"/>
+            <column name="AUTOR" type="${descricao255}"/>
+            <column name="ISBN" type="${descricao255}"/>
+            <column name="STATUS" type="${descricao255}"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
