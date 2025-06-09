@@ -25,5 +25,5 @@ public class Book {
     private String isbn;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.DISPONIVEL;
 }

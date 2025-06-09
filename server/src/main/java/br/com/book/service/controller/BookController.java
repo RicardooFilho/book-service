@@ -53,7 +53,7 @@ public class BookController {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{isbn}")
+    @PutMapping("/isbn/{isbn}")
     public ResponseEntity<Void> patchStatus(@PathVariable String isbn,
                                             @RequestBody BookPatchRequest request) throws EntityNotFoundException {
         service.patchStatus(isbn, request);
